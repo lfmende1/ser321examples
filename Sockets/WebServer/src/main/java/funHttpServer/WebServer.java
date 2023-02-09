@@ -201,34 +201,47 @@ class WebServer {
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
           // extract path parameters
           query_pairs = splitQuery(request.replace("multiply?", ""));
-          if (query_pairs.get("num1") == null || query_pairs.get("num2") == null){
+          if (query_pairs.get("num1") != null || query_pairs.get("num2") != null){
 
-            builder.append("HTTP/1.1 409 Conflict\n");
+            int iter1 = query_pairs.get("num1").length();
+            int iter2 = query_pairs.get("num2").length();
+            while (iter1 > 0){
+              if (query_pairs.get("num1").charAt(iter1) < 0 || query_pairs.get("num1").charAt(iter1) > 9){
+                builder.append("HTTP/1.1 409 Conflict\n");
+                builder.append("Content-Type: text/html; charset=utf-8\n");
+                builder.append("\n");
+                builder.append("Number Format Exception, please enter two numbers for num1 and num2 respectively.");
+                NumberFormatException num = new NumberFormatException("Number Format Exception, please enter two numbers for num1 and num2 respectively.");
+                throw num;
+              }
+            }
+            // extract required fields from parameters
+            Integer num1 = Integer.parseInt(query_pairs.get("num1"));
+            Integer num2 = Integer.parseInt(query_pairs.get("num2"));
+
+
+
+
+            // do math
+            Integer result = num1 * num2;
+
+            // Generate response
+            builder.append("HTTP/1.1 200 OK\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
             builder.append("\n");
-            builder.append("Incomplete parameters: please enter two numbers to multiply");
-            IllegalArgumentException exc = new IllegalArgumentException("Incomplete parameters: " +
-                    "please enter two numbers to multiply");
-            throw exc;
+            builder.append("Result is: " + result);
+
+            // TODO: Include error handling here with a correct error code and
+            // a response that makes sense
           }
-          // extract required fields from parameters
-          Integer num1 = Integer.parseInt(query_pairs.get("num1"));
-          Integer num2 = Integer.parseInt(query_pairs.get("num2"));
-
-
-
-
-          // do math
-          Integer result = num1 * num2;
-
-          // Generate response
-          builder.append("HTTP/1.1 200 OK\n");
+          builder.append("HTTP/1.1 409 Conflict\n");
           builder.append("Content-Type: text/html; charset=utf-8\n");
           builder.append("\n");
-          builder.append("Result is: " + result);
+          builder.append("Incomplete parameters: please enter two numbers to multiply");
+          IllegalArgumentException exc = new IllegalArgumentException("Incomplete parameters: " +
+                  "please enter two numbers to multiply");
+          throw exc;
 
-          // TODO: Include error handling here with a correct error code and
-          // a response that makes sense
 
         } else if (request.contains("github?")) {
           // pulls the query from the request and runs it with GitHub's REST API
