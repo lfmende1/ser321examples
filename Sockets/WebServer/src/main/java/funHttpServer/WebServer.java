@@ -203,9 +203,9 @@ class WebServer {
           query_pairs = splitQuery(request.replace("multiply?", ""));
           if (query_pairs.get("num1") != null || query_pairs.get("num2") != null){
 
-            int iter1 = query_pairs.get("num1").length();
-            int iter2 = query_pairs.get("num2").length();
-            while (iter1 > 0){
+            int iter1 = query_pairs.get("num1").length()-1;
+            int iter2 = query_pairs.get("num2").length()-1;
+            while (iter1 >= 0){
               if (query_pairs.get("num1").charAt(iter1) < 0 || query_pairs.get("num1").charAt(iter1) > 9){
                 builder.append("HTTP/1.1 409 Conflict\n");
                 builder.append("Content-Type: text/html; charset=utf-8\n");
@@ -214,6 +214,18 @@ class WebServer {
                 NumberFormatException num = new NumberFormatException("Number Format Exception, please enter two numbers for num1 and num2 respectively.");
                 throw num;
               }
+              iter1--;
+            }
+            while (iter2 >= 0){
+              if (query_pairs.get("num2").charAt(iter2) < 0 || query_pairs.get("num2").charAt(iter2) > 9){
+                builder.append("HTTP/1.1 409 Conflict\n");
+                builder.append("Content-Type: text/html; charset=utf-8\n");
+                builder.append("\n");
+                builder.append("Number Format Exception, please enter two numbers for num1 and num2 respectively.");
+                NumberFormatException num = new NumberFormatException("Number Format Exception, please enter two numbers for num1 and num2 respectively.");
+                throw num;
+              }
+              iter2--;
             }
             // extract required fields from parameters
             Integer num1 = Integer.parseInt(query_pairs.get("num1"));
