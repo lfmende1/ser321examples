@@ -256,7 +256,7 @@ class WebServer {
            // Generate response
             if (!error){
               builder.append("HTTP/1.1 200 OK\n");
-              builder.append("Content-Type: text/html; charset=utf-8\n");
+              builder.append("Content-Type: application/json; charset=utf-8\n");
               builder.append("\n");
             }
             builder.append("Result is: " + result);
@@ -313,7 +313,7 @@ class WebServer {
               }
               if (!finished){
                 builder.append(line + "\n");
-                builder.append("\n");
+
               }
             }
 
