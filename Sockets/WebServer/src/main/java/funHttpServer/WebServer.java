@@ -309,11 +309,11 @@ class WebServer {
               String line = br.readLine();
               if (line.contains("\"full_name\":")){
                 builder.append("{" + line + ",\n");
-                builder.append(System.getProperty("line.separator"));
+                builder.append("<br/>");
               }
               if (line.contains("\"id\":")){
                 builder.append(line + ",\n");
-                builder.append(System.getProperty("line.separator"));
+                builder.append(System.lineSeparator());
               }
               if (line == null || line.equals("")){
                 finished = true;
