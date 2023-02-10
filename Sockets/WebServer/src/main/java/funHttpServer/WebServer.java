@@ -197,41 +197,59 @@ class WebServer {
         } else if (request.contains("multiply?")) {
           // This multiplies two numbers, there is NO error handling, so when
           // wrong data is given this just crashes
-
+          Integer num1, num2;
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
           // extract path parameters
           query_pairs = splitQuery(request.replace("multiply?", ""));
           if (query_pairs.get("num1") != null || query_pairs.get("num2") != null){
 
-            int iter1 = query_pairs.get("num1").length()-1;
-            int iter2 = query_pairs.get("num2").length()-1;
-            while (iter1 >= 0){
-              if (query_pairs.get("num1").charAt(iter1) < 0 || query_pairs.get("num1").charAt(iter1) > 9){
-                builder.append("HTTP/1.1 409 Conflict\n");
-                builder.append("Content-Type: text/html; charset=utf-8\n");
-                builder.append("\n");
-                builder.append("Number Format Exception, please enter two numbers for num1 and num2 respectively.");
-                NumberFormatException num = new NumberFormatException("Number Format Exception, please enter two numbers for num1 and num2 respectively.");
-                throw num;
-              }
-              iter1--;
-            }
-            while (iter2 >= 0){
-              if (query_pairs.get("num2").charAt(iter2) < 0 || query_pairs.get("num2").charAt(iter2) > 9){
-                builder.append("HTTP/1.1 409 Conflict\n");
-                builder.append("Content-Type: text/html; charset=utf-8\n");
-                builder.append("\n");
-                builder.append("Number Format Exception, please enter two numbers for num1 and num2 respectively.");
-                NumberFormatException num = new NumberFormatException("Number Format Exception, please enter two numbers for num1 and num2 respectively.");
-                throw num;
-              }
-              iter2--;
-            }
+//            int iter1 = query_pairs.get("num1").length()-1;
+//            int iter2 = query_pairs.get("num2").length()-1;
+//            while (iter1 >= 0){
+//              if (query_pairs.get("num1").charAt(iter1) < 0 || query_pairs.get("num1").charAt(iter1) > 9){
+//                builder.append("HTTP/1.1 409 Conflict\n");
+//                builder.append("Content-Type: text/html; charset=utf-8\n");
+//                builder.append("\n");
+//                builder.append("Number Format Exception, please enter two numbers for num1 and num2 respectively.");
+//                NumberFormatException num = new NumberFormatException("Number Format Exception, please enter two numbers for num1 and num2 respectively.");
+//                throw num;
+//              }
+//              iter1--;
+//            }
+//            while (iter2 >= 0){
+//              if (query_pairs.get("num2").charAt(iter2) < 0 || query_pairs.get("num2").charAt(iter2) > 9){
+//                builder.append("HTTP/1.1 409 Conflict\n");
+//                builder.append("Content-Type: text/html; charset=utf-8\n");
+//                builder.append("\n");
+//                builder.append("Number Format Exception, please enter two numbers for num1 and num2 respectively.");
+//                NumberFormatException num = new NumberFormatException("Number Format Exception, please enter two numbers for num1 and num2 respectively.");
+//                throw num;
+//              }
+//              iter2--;
+//            }
             // extract required fields from parameters
-            Integer num1 = Integer.parseInt(query_pairs.get("num1"));
-            Integer num2 = Integer.parseInt(query_pairs.get("num2"));
+            try {
+              num1 = Integer.parseInt(query_pairs.get("num1"));
 
-
+            }catch (NumberFormatException num) {
+              builder.append("HTTP/1.1 200 OK\n");
+              builder.append("Content-Type: text/html; charset=utf-8\n");
+              builder.append("\n");
+              builder.append("You input: '"+ query_pairs.get("num1") + "' to multiply which is very very invalid " +
+                      "how dare you." +
+                      " It's okay I will instead pick a number for you :)");
+              num1 = 25;
+            }
+            try{
+              num2 = Integer.parseInt(query_pairs.get("num2"));
+            }catch (NumberFormatException num) {
+              builder.append("HTTP/1.1 200 OK\n");
+              builder.append("Content-Type: text/html; charset=utf-8\n");
+              builder.append("\n");
+              builder.append("You input: '"+ query_pairs.get("num2") + "' to multiply... that doesn't make sense" +
+                      "ill just assume you said 25");
+              num2 = 25;
+            }
 
 
             // do math
@@ -246,7 +264,7 @@ class WebServer {
             // TODO: Include error handling here with a correct error code and
             // a response that makes sense
           }
-          builder.append("HTTP/1.1 409 Conflict\n");
+          builder.append("HTTP/1.1 400 Bad Request\n");
           builder.append("Content-Type: text/html; charset=utf-8\n");
           builder.append("\n");
           builder.append("Incomplete parameters: please enter two numbers to multiply");
