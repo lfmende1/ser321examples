@@ -198,6 +198,7 @@ class WebServer {
           // This multiplies two numbers, there is NO error handling, so when
           // wrong data is given this just crashes
           Integer num1, num2;
+          Boolean error = false;
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
           // extract path parameters
           query_pairs = splitQuery(request.replace("multiply?", ""));
@@ -235,25 +236,26 @@ class WebServer {
               builder.append("HTTP/1.1 400 Bad Request\n");
               builder.append("Content-Type: text/html; charset=utf-8\n");
               builder.append("\n");
-              builder.append("You input: '"+ query_pairs.get("num1") + " and " + query_pairs.get("num2") +
-                              "' to multiply which is very very invalid " +
+              builder.append("You input: '"+ query_pairs.get("num1") +"'"+ " and "+ "'" + query_pairs.get("num2") +
+                              "' to multiply which is invalid " +
                       "how dare you." +
                       " It's okay I will instead pick the numbers for you :)\n");
               num1 = random.nextInt(5000);
               num2 = random.nextInt(5000);
-              builder.append("num1 = " + num1);
-              builder.append("num2 = " + num2);
-
+              builder.append(" num1 = \n" + num1);
+              builder.append(" num2 = \n" + num2);
+              error = true;
             }
 
 
             // do math
             Integer result = num1 * num2;
-
-            // Generate response
-            builder.append("HTTP/1.1 200 OK\n");
-            builder.append("Content-Type: text/html; charset=utf-8\n");
-            builder.append("\n");
+           // Generate response
+            if (!error){
+              builder.append("HTTP/1.1 200 OK\n");
+              builder.append("Content-Type: text/html; charset=utf-8\n");
+              builder.append("\n");
+            }
             builder.append("Result is: " + result);
 
             // TODO: Include error handling here with a correct error code and
