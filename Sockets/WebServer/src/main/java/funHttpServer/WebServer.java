@@ -385,8 +385,11 @@ class WebServer {
           builder.append("Content-Type: text/html; charset=utf-8\n");
           builder.append("\n");
           builder.append("<body style=\"background-color:" + color1 + ";\">");
-          builder.append("<h1 style=\"color:" + color2 + ";\">IT IS CURRENTLY PARTY TIME!</h1>");
-
+          builder.append("<h1 style=\"color:" + color2 + ";\">IT IS CURRENTLY PARTY TIME!</h1><br>");
+          for (int i = 0; i < 50; i++){
+            builder.append("<h2 style=\"color:" + color2 + ";\"party...</h2><br>");
+          }
+          builder.append("<h3 style=\"color:" + color2 + ":\"party over.</h3><br>");
 
         }else
         {
