@@ -306,7 +306,16 @@ class WebServer {
             StringBuffer sb = new StringBuffer();
             boolean finished = false;
             String line = br.readLine();
-            builder.append(line);
+            char regex = '{';
+            String pretty[] = line.split(",");
+            for (int i = 0; i < pretty.length; i++){
+              if (pretty[i].contains("\"full_name\"")){
+                builder.append(pretty[i]+"\n");
+              }
+              if (pretty[i].contains("\"id\"")){
+                builder.append(pretty[i]+"\n");
+              }
+            }
 //            while (!finished){
 //              String line = br.readLine();
 //              if (line.contains("\"full_name\":")){
