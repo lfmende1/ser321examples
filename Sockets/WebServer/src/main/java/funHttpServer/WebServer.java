@@ -230,25 +230,20 @@ class WebServer {
             // extract required fields from parameters
             try {
               num1 = Integer.parseInt(query_pairs.get("num1"));
-
-            }catch (NumberFormatException num) {
-              builder.append("HTTP/1.1 200 OK\n");
-              builder.append("Content-Type: text/html; charset=utf-8\n");
-              builder.append("\n");
-              builder.append("You input: '"+ query_pairs.get("num1") + "' to multiply which is very very invalid " +
-                      "how dare you." +
-                      " It's okay I will instead pick a number for you :)");
-              num1 = 25;
-            }
-            try{
               num2 = Integer.parseInt(query_pairs.get("num2"));
             }catch (NumberFormatException num) {
-              builder.append("HTTP/1.1 200 OK\n");
+              builder.append("HTTP/1.1 400 Bad Request\n");
               builder.append("Content-Type: text/html; charset=utf-8\n");
               builder.append("\n");
-              builder.append("You input: '"+ query_pairs.get("num2") + "' to multiply... that doesn't make sense" +
-                      "ill just assume you said 25");
-              num2 = 25;
+              builder.append("You input: '"+ query_pairs.get("num1") + " and " + query_pairs.get("num2") +
+                              "' to multiply which is very very invalid " +
+                      "how dare you." +
+                      " It's okay I will instead pick the numbers for you :)\n");
+              num1 = random.nextInt(5000);
+              num2 = random.nextInt(5000);
+              builder.append("num1 = " + num1);
+              builder.append("num2 = " + num2);
+              throw num;
             }
 
 
@@ -263,20 +258,6 @@ class WebServer {
 
             // TODO: Include error handling here with a correct error code and
             // a response that makes sense
-
-          /*
-          builder.append("HTTP/1.1 400 Bad Request\n");
-          builder.append("Content-Type: text/html; charset=utf-8\n");
-          builder.append("\n");
-          builder.append("Incomplete parameters: please enter two numbers to multiply");
-          NumberFormatException exc = new NumberFormatException("Incomplete parameters: " +
-                  "please enter two numbers to multiply");
-          throw exc;
-          */
-//          builder.append("HTTP/1.1 200 OK\n");
-//          builder.append("Content-Type: text/html; charset=utf-8\n");
-//          builder.append("\n");
-//          builder.append("Inputs: " + query_pairs.get(num1) + ", " + query_pairs.get(num2));
 
         } else if (request.contains("github?")) {
           // pulls the query from the request and runs it with GitHub's REST API
