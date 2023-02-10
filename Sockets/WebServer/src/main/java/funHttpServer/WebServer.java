@@ -305,21 +305,23 @@ class WebServer {
             BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
             StringBuffer sb = new StringBuffer();
             boolean finished = false;
-            while (!finished){
-              String line = br.readLine();
-              if (line.contains("\"full_name\":")){
-                builder.append("{" + line + ",\n");
-                builder.append("<br/>");
-              }
+            String line = br.readLine();
+            builder.append(line);
+//            while (!finished){
+//              String line = br.readLine();
+//              if (line.contains("\"full_name\":")){
+//                builder.append("{" + line + ",\n");
+//                builder.append("<br/>");
+//              }
 //              if (line.contains("\"id\":")){
 //                builder.append(line + ",\n");
 //                builder.append(System.lineSeparator());
 //              }
-              if (line == null || line.equals("")){
-                finished = true;
-              }
-
-            }
+//              if (line == null || line.equals("")){
+//                finished = true;
+//              }
+//
+//            }
 
 
             //builder.append("Check the todos mentioned in the Java source file");
