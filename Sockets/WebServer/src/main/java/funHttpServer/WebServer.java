@@ -16,6 +16,9 @@ write a response back
 
 package funHttpServer;
 
+
+
+
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
@@ -242,8 +245,8 @@ class WebServer {
                       " It's okay I will instead pick the numbers for you :)\n");
               num1 = random.nextInt(5000);
               num2 = random.nextInt(5000);
-              builder.append(" num1 = \n" + num1);
-              builder.append(" num2 = \n" + num2);
+              builder.append(" num1 = " + num1 + " \n");
+              builder.append(" num2 = " + num2 + " \n");
               error = true;
             }
 
@@ -272,13 +275,51 @@ class WebServer {
 
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
           query_pairs = splitQuery(request.replace("github?", ""));
-          String json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
-          System.out.println(json);
+          boolean error = false;
+          URL url;
+          String json;
+          try{
+            json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
+            System.out.println(json);
 
-          builder.append("HTTP/1.1 200 OK\n");
-          builder.append("Content-Type: text/html; charset=utf-8\n");
-          builder.append("\n");
-          builder.append("Check the todos mentioned in the Java source file");
+
+
+
+          }catch(IllegalArgumentException ill){
+            error = true;
+            json = fetchURL("https://api.github.com/users/amehlhase316/repos");
+            builder.append("HTTP/1.1 400 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("Please enter a valid query\n");
+          }
+
+          if (!error) {
+            builder.append("HTTP/1.1 200 OK\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            url = new URL(json);
+            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.connect();
+            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+            StringBuffer sb = new StringBuffer();
+            boolean finished = false;
+            while (!finished){
+              String line = br.readLine();
+              if (line == null || line.equals("")){
+                finished = true;
+              }
+              if (!finished){
+                builder.append(line + "\n");
+              }
+            }
+
+
+            //builder.append("Check the todos mentioned in the Java source file");
+          }
+
+
           // TODO: Parse the JSON returned by your fetch and create an appropriate
           // response based on what the assignment document asks for
 
