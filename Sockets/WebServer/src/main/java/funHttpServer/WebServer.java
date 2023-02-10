@@ -282,9 +282,6 @@ class WebServer {
             json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
             System.out.println(json);
 
-
-
-
           }catch(IllegalArgumentException ill){
             error = true;
             json = fetchURL("https://api.github.com/users/amehlhase316/repos");
@@ -296,26 +293,29 @@ class WebServer {
 
           if (!error) {
             builder.append("HTTP/1.1 200 OK\n");
-            builder.append("Content-Type: application/json; charset=utf-8\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
             builder.append("\n");
-            url = new URL(json);
-            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.connect();
-            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
-            StringBuffer sb = new StringBuffer();
-            boolean finished = false;
-            String line = br.readLine();
-            char regex = '{';
-            String pretty[] = line.split(",");
-//            for (int i = 0; i < pretty.length; i++){
-//              if (pretty[i].contains("\"full_name\"")){
-//                builder.append(pretty[i]+"\n");
-//              }
-//              if (pretty[i].contains("\"id\"")){
-//                builder.append(pretty[i]+"\n");
-//              }
-//            }
+//            url = new URL(json);
+//            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+//            connection.setRequestMethod("GET");
+//            connection.connect();
+//            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+//            StringBuffer sb = new StringBuffer();
+//            boolean finished = false;
+
+            //String line = br.readLine();
+
+            String pretty[] = json.split(",");
+
+            //br.close();
+            for (int i = 0; i < pretty.length; i++){
+              if (pretty[i].contains("\"full_name\"")){
+                builder.append(pretty[i]+"\n");
+              }
+              if (pretty[i].contains("\"id\"")){
+                builder.append(pretty[i]+"\n");
+              }
+            }
 //            while (!finished){
 //              String line = br.readLine();
 //              if (line.contains("\"full_name\":")){
