@@ -243,7 +243,7 @@ class WebServer {
               num2 = random.nextInt(5000);
               builder.append("num1 = " + num1);
               builder.append("num2 = " + num2);
-              throw num;
+
             }
 
 
