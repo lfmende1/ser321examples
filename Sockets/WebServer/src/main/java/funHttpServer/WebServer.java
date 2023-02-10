@@ -296,7 +296,7 @@ class WebServer {
 
           if (!error) {
             builder.append("HTTP/1.1 200 OK\n");
-            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("Content-Type: application/json; charset=utf-8\n");
             builder.append("\n");
             url = new URL(json);
             HttpURLConnection connection = (HttpURLConnection)url.openConnection();
@@ -307,11 +307,11 @@ class WebServer {
             boolean finished = false;
             while (!finished){
               String line = br.readLine();
-              if (line.contains("full_name")){
+              if (line.contains("\"full_name\":")){
                 builder.append("{" + line + ",\n");
                 builder.append(System.getProperty("line.separator"));
               }
-              if (line.contains("\"id\"")){
+              if (line.contains("\"id\":")){
                 builder.append(line + ",\n");
                 builder.append(System.getProperty("line.separator"));
               }
