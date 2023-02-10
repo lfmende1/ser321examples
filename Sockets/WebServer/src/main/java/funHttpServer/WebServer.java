@@ -299,12 +299,10 @@ class WebServer {
 
             for (int i = 0; i < pretty.length; i++){
               if (pretty[i].contains("\"full_name\"")){
-                builder.append(pretty[i]+"\n");
-                builder.append(System.lineSeparator());
+                builder.append(pretty[i]+"<br>");
               }
               if (pretty[i].contains("\"id\"")){
-                builder.append(pretty[i]+"\n");
-                builder.append(System.lineSeparator());
+                builder.append(pretty[i]+"<br>");
               }
             }
 //
