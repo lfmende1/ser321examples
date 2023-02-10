@@ -312,7 +312,84 @@ class WebServer {
           // TODO: Parse the JSON returned by your fetch and create an appropriate
           // response based on what the assignment document asks for
 
-        } else {
+        }else if(request.contains("party?")) {
+          Map<String, String> query_pairs = new LinkedHashMap<String, String>();
+          query_pairs = splitQuery(request.replace("party?", ""));
+          String color1 = null;
+          String color2 = null;
+          String rgb1, rgb2;
+          boolean error = false;
+          try{
+            color1 = query_pairs.get("bgr");
+            color2 = query_pairs.get("txt");
+          }catch(IllegalArgumentException exc){
+            error = true;
+            builder.append("HTTP/1.1 400 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("<div><h1>Illegal argument. please enter the name of a color</h1></div>");
+          }
+          switch (color1.toLowerCase()){
+            case("red"):
+              rgb1 = "#FF0000";
+              break;
+            case("green"):
+              rgb1 = "#00FF00";
+              break;
+            case("blue"):
+              rgb1 = "#0000FF";
+              break;
+            case("yellow"):
+              rgb1 = "#FFFF00";
+              break;
+            case("orange"):
+              rgb1 = "#FFAA00";
+              break;
+            case("pink"):
+              rgb1 = "#FFAAEE";
+              break;
+            case("purple"):
+              rgb1 = "#A500FF";
+              break;
+            default:
+              rgb1 = "#FFFFFF";
+          }
+
+
+          switch (color2.toLowerCase()){
+            case("red"):
+              rgb2 = "#FF0000";
+              break;
+            case("green"):
+              rgb2 = "#00FF00";
+              break;
+            case("blue"):
+              rgb2 = "#0000FF";
+              break;
+            case("yellow"):
+              rgb2 = "#FFFF00";
+              break;
+            case("orange"):
+              rgb2 = "#FFAA00";
+              break;
+            case("pink"):
+              rgb2 = "#FFAAEE";
+              break;
+            case("purple"):
+              rgb2 = "#A500FF";
+              break;
+            default:
+              rgb2 = "#FFFFFF";
+          }
+          builder.append("HTTP/1.1 200 OK\n");
+          builder.append("Content-Type: text/html; charset=utf-8\n");
+          builder.append("\n");
+          builder.append("<body style=\"background-color:" + color1 + ";\">");
+          builder.append("<h1 style=\"color:" + color2 + ";\">IT IS CURRENTLY PARTY TIME!</h1>");
+
+
+        }else
+        {
           // if the request is not recognized at all
 
           builder.append("HTTP/1.1 400 Bad Request\n");
