@@ -307,11 +307,13 @@ class WebServer {
             boolean finished = false;
             while (!finished){
               String line = br.readLine();
+
               if (line == null || line.equals("")){
                 finished = true;
               }
               if (!finished){
                 builder.append(line + "\n");
+                builder.append("\n");
               }
             }
 
