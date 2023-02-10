@@ -311,10 +311,10 @@ class WebServer {
                 builder.append("{" + line + ",\n");
                 builder.append("<br/>");
               }
-              if (line.contains("\"id\":")){
-                builder.append(line + ",\n");
-                builder.append(System.lineSeparator());
-              }
+//              if (line.contains("\"id\":")){
+//                builder.append(line + ",\n");
+//                builder.append(System.lineSeparator());
+//              }
               if (line == null || line.equals("")){
                 finished = true;
               }
