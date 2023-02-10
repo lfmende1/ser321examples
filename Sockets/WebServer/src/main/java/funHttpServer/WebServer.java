@@ -295,45 +295,19 @@ class WebServer {
             builder.append("HTTP/1.1 200 OK\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
             builder.append("\n");
-//            url = new URL(json);
-//            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-//            connection.setRequestMethod("GET");
-//            connection.connect();
-//            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
-//            StringBuffer sb = new StringBuffer();
-//            boolean finished = false;
-
-            //String line = br.readLine();
-
             String pretty[] = json.split(",");
 
-            //br.close();
             for (int i = 0; i < pretty.length; i++){
               if (pretty[i].contains("\"full_name\"")){
                 builder.append(pretty[i]+"\n");
+                builder.append(System.lineSeparator());
               }
               if (pretty[i].contains("\"id\"")){
                 builder.append(pretty[i]+"\n");
+                builder.append(System.lineSeparator());
               }
             }
-//            while (!finished){
-//              String line = br.readLine();
-//              if (line.contains("\"full_name\":")){
-//                builder.append("{" + line + ",\n");
-//                builder.append("<br/>");
-//              }
-//              if (line.contains("\"id\":")){
-//                builder.append(line + ",\n");
-//                builder.append(System.lineSeparator());
-//              }
-//              if (line == null || line.equals("")){
-//                finished = true;
-//              }
 //
-//            }
-
-
-            //builder.append("Check the todos mentioned in the Java source file");
           }
 
 
