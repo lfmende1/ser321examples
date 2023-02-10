@@ -201,7 +201,7 @@ class WebServer {
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
           // extract path parameters
           query_pairs = splitQuery(request.replace("multiply?", ""));
-          if (query_pairs.get("num1") != null || query_pairs.get("num2") != null){
+
 
 //            int iter1 = query_pairs.get("num1").length()-1;
 //            int iter2 = query_pairs.get("num2").length()-1;
@@ -263,15 +263,20 @@ class WebServer {
 
             // TODO: Include error handling here with a correct error code and
             // a response that makes sense
-          }
+
+          /*
           builder.append("HTTP/1.1 400 Bad Request\n");
           builder.append("Content-Type: text/html; charset=utf-8\n");
           builder.append("\n");
           builder.append("Incomplete parameters: please enter two numbers to multiply");
-          IllegalArgumentException exc = new IllegalArgumentException("Incomplete parameters: " +
+          NumberFormatException exc = new NumberFormatException("Incomplete parameters: " +
                   "please enter two numbers to multiply");
           throw exc;
-
+          */
+//          builder.append("HTTP/1.1 200 OK\n");
+//          builder.append("Content-Type: text/html; charset=utf-8\n");
+//          builder.append("\n");
+//          builder.append("Inputs: " + query_pairs.get(num1) + ", " + query_pairs.get(num2));
 
         } else if (request.contains("github?")) {
           // pulls the query from the request and runs it with GitHub's REST API
