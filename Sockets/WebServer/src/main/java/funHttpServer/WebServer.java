@@ -378,7 +378,7 @@ class WebServer {
 
           }catch(IllegalArgumentException exc){
             error = true;
-            builder.append("HTML/1.1 400 Bad Request\n");
+            builder.append("HTTP/1.1 400 Bad Request\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
             builder.append("\n");
             builder.append("<h1>Please enter a valid shape & the size in pixels</h1>");
@@ -387,7 +387,7 @@ class WebServer {
           }
 
           if (!error){
-            builder.append("HTML/1.1 200 OK\n");
+            builder.append("HTTP/1.1 200 OK\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
             builder.append("\n");
 
@@ -424,7 +424,7 @@ class WebServer {
                       "<div class=\"triangle-up\"></div></body></html>");
             }else{
 
-              builder.replace(0,16,"HTML/1.1 400 Bad Request\n");
+              builder.replace(0,16,"HTTP/1.1 400 Bad Request\n");
               //builder.append("HTML/1.1 400 Bad Request\n");
               //builder.append("Content-Type: text/html; charset=utf-8\n");
               //builder.append("\n");
