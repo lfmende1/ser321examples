@@ -416,8 +416,8 @@ class WebServer {
             }else if (shape.equalsIgnoreCase("TRIANGLE")){
               builder.append("<html><head><style>" +
                       ".triangle{ " +
-                      "height:"+size+";"+
-                      "width:"+size+";"+
+                      "height:"+0+";"+
+                      "width:"+0+";"+
                       "border-right:"+size+"px solid; " +
                       "border-left:"+size+"px solid; " +
                       "border-bottom:"+size*2+"px solid #800000; " +
