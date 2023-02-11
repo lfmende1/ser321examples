@@ -205,32 +205,6 @@ class WebServer {
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
           // extract path parameters
           query_pairs = splitQuery(request.replace("multiply?", ""));
-
-
-//            int iter1 = query_pairs.get("num1").length()-1;
-//            int iter2 = query_pairs.get("num2").length()-1;
-//            while (iter1 >= 0){
-//              if (query_pairs.get("num1").charAt(iter1) < 0 || query_pairs.get("num1").charAt(iter1) > 9){
-//                builder.append("HTTP/1.1 409 Conflict\n");
-//                builder.append("Content-Type: text/html; charset=utf-8\n");
-//                builder.append("\n");
-//                builder.append("Number Format Exception, please enter two numbers for num1 and num2 respectively.");
-//                NumberFormatException num = new NumberFormatException("Number Format Exception, please enter two numbers for num1 and num2 respectively.");
-//                throw num;
-//              }
-//              iter1--;
-//            }
-//            while (iter2 >= 0){
-//              if (query_pairs.get("num2").charAt(iter2) < 0 || query_pairs.get("num2").charAt(iter2) > 9){
-//                builder.append("HTTP/1.1 409 Conflict\n");
-//                builder.append("Content-Type: text/html; charset=utf-8\n");
-//                builder.append("\n");
-//                builder.append("Number Format Exception, please enter two numbers for num1 and num2 respectively.");
-//                NumberFormatException num = new NumberFormatException("Number Format Exception, please enter two numbers for num1 and num2 respectively.");
-//                throw num;
-//              }
-//              iter2--;
-//            }
             // extract required fields from parameters
             try {
               num1 = Integer.parseInt(query_pairs.get("num1"));
@@ -256,7 +230,7 @@ class WebServer {
            // Generate response
             if (!error){
               builder.append("HTTP/1.1 200 OK\n");
-              builder.append("Content-Type: application/json; charset=utf-8\n");
+              builder.append("Content-Type: text/html; charset=utf-8\n");
               builder.append("\n");
             }
             builder.append("Result is: " + result);
@@ -312,7 +286,7 @@ class WebServer {
           // TODO: Parse the JSON returned by your fetch and create an appropriate
           // response based on what the assignment document asks for
 
-        }else if(request.contains("party?")) {
+        } else if(request.contains("party?")) {
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
           query_pairs = splitQuery(request.replace("party?", ""));
           String color1 = null;
@@ -392,7 +366,59 @@ class WebServer {
           }
           builder.append("<h3 style=\"color:" + color2 + ";\">party over.</h3><br>");
 
-        }else
+        } else if(request.contains("shapes?")){
+          Map<String, String> query_pairs = new LinkedHashMap<String, String>();
+          query_pairs = splitQuery(request.replace("shapes?", ""));
+          boolean error = false;
+          String shape=null;
+          int size=0;
+          try{
+            shape = query_pairs.get("shape");
+            size = Integer.parseInt(query_pairs.get("size"));
+
+          }catch(IllegalArgumentException exc){
+            error = true;
+            builder.append("HTML/1.1 400 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("<h1>Please enter a valid shape & the size in pixels</h1>");
+            builder.append("<br>[shape options]<br>");
+            builder.append("square, triangle, circle");
+          }
+
+          if (!error){
+            builder.append("HTML/1.1 200 OK\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+
+            if (shape.equalsIgnoreCase("SQUARE")){
+              builder.append("<style>.square{height:"+size+"px;width:"+size+"px;background-color:#800000}</style>");
+              builder.append("<body><h3>You have summoned a " + shape +" with a side-length of " + size + "</h3></body><br>" +
+                      "<div class=\"square\"></div>");
+
+            }else if (shape.equalsIgnoreCase("CIRCLE")){
+              builder.append("<style>.circle{height:"+size+"px;width:"+size+"px;background-color:#800000}</style>");
+              builder.append("<body><h3>You have summoned a " + shape +" with a radius of " + size + "</h3></body><br>" +
+                      "<div class=\"circle\"></div>");
+            }else if (shape.equalsIgnoreCase("TRIANGLE")){
+              builder.append("<style>.triangle-up{height:"+size+"px;width:"+size+"px;background-color:#800000}</style>");
+              builder.append("<body><h3>You have summoned a " + shape +" with a side-length of " + size + "</h3></body><br>" +
+                      "<div class=\"triangle-up\"></div>");
+            }else{
+
+              builder.replace(0,16,"HTML/1.1 400 Bad Request\n");
+              //builder.append("HTML/1.1 400 Bad Request\n");
+              //builder.append("Content-Type: text/html; charset=utf-8\n");
+              //builder.append("\n");
+              builder.append("<h1>Please enter a valid shape & the size in pixels</h1>");
+              builder.append("<br>[shape options]<br>");
+              builder.append("square, triangle, circle");
+            }
+          }
+
+
+        }
+        else
         {
           // if the request is not recognized at all
 
