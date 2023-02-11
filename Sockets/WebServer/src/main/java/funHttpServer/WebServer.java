@@ -396,10 +396,10 @@ class WebServer {
                       ".square{ " +
                       "height:"+size+"px; " +
                       "width:"+size+"px; " +
-                      "background-color:#800000 " +
+                      "background-color:#800000; " +
                       "} " +
                       "</style></head> ");
-              builder.append("<body><h3>You have summoned a " + shape +" with a side-length of " + size + "</h3><br>" +
+              builder.append("<body><h3>You have summoned a " + shape +" with a side-length of " + size + "</h3>" +
                       "<div class=\"square\"></div></body></html>");
 
             }else if (shape.equalsIgnoreCase("CIRCLE")){
@@ -407,20 +407,20 @@ class WebServer {
                       ".circle{ " +
                       "height:"+size+"px; " +
                       "width:"+size+"px; " +
-                      "background-color:#800000 " +
+                      "background-color:#800000; " +
                       "} " +
                       "</style></head> ");
-              builder.append("<body><h3>You have summoned a " + shape +" with a radius of " + size + "</h3><br>" +
+              builder.append("<body><h3>You have summoned a " + shape +" with a radius of " + size + "</h3>" +
                       "<div class=\"circle\"></div></body></html>");
             }else if (shape.equalsIgnoreCase("TRIANGLE")){
               builder.append("<html><head><style>" +
                       ".triangle-up{ " +
                       "height:"+size+"px; " +
                       "width:"+size+"px; " +
-                      "background-color:#800000 " +
+                      "background-color:#800000; " +
                       "} " +
                       "</style> ");
-              builder.append("<body><h3>You have summoned a " + shape +" with a side-length of " + size + "</h3><br>" +
+              builder.append("<body><h3>You have summoned a " + shape +" with a side-length of " + size + "</h3>" +
                       "<div class=\"triangle-up\"></div></body></html>");
             }else{
 
