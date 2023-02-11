@@ -392,18 +392,36 @@ class WebServer {
             builder.append("\n");
 
             if (shape.equalsIgnoreCase("SQUARE")){
-              builder.append("<style>.square{height:"+size+"px;width:"+size+"px;background-color:#800000}</style>");
-              builder.append("<body><h3>You have summoned a " + shape +" with a side-length of " + size + "</h3></body><br>" +
-                      "<div class=\"square\"></div>");
+              builder.append("<html><head><style>" +
+                      ".square{ " +
+                      "height:"+size+"px; " +
+                      "width:"+size+"px; " +
+                      "background-color:#800000 " +
+                      "} " +
+                      "</style></head> ");
+              builder.append("<body><h3>You have summoned a " + shape +" with a side-length of " + size + "</h3><br>" +
+                      "<div class=\"square\"></div></body></html>");
 
             }else if (shape.equalsIgnoreCase("CIRCLE")){
-              builder.append("<style>.circle{height:"+size+"px;width:"+size+"px;background-color:#800000}</style>");
-              builder.append("<body><h3>You have summoned a " + shape +" with a radius of " + size + "</h3></body><br>" +
-                      "<div class=\"circle\"></div>");
+              builder.append("<html><head><style>" +
+                      ".circle{ " +
+                      "height:"+size+"px; " +
+                      "width:"+size+"px; " +
+                      "background-color:#800000 " +
+                      "} " +
+                      "</style></head> ");
+              builder.append("<body><h3>You have summoned a " + shape +" with a radius of " + size + "</h3><br>" +
+                      "<div class=\"circle\"></div></body></html>");
             }else if (shape.equalsIgnoreCase("TRIANGLE")){
-              builder.append("<style>.triangle-up{height:"+size+"px;width:"+size+"px;background-color:#800000}</style>");
-              builder.append("<body><h3>You have summoned a " + shape +" with a side-length of " + size + "</h3></body><br>" +
-                      "<div class=\"triangle-up\"></div>");
+              builder.append("<html><head><style>" +
+                      ".triangle-up{ " +
+                      "height:"+size+"px; " +
+                      "width:"+size+"px; " +
+                      "background-color:#800000 " +
+                      "} " +
+                      "</style> ");
+              builder.append("<body><h3>You have summoned a " + shape +" with a side-length of " + size + "</h3><br>" +
+                      "<div class=\"triangle-up\"></div></body></html>");
             }else{
 
               builder.replace(0,16,"HTML/1.1 400 Bad Request\n");
