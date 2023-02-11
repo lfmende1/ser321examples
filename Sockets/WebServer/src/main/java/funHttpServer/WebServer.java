@@ -428,16 +428,11 @@ class WebServer {
             }else{
 
               builder.replace(0,16,"HTTP/1.1 400 Bad Request\n");
-              //builder.append("HTML/1.1 400 Bad Request\n");
-              //builder.append("Content-Type: text/html; charset=utf-8\n");
-              //builder.append("\n");
               builder.append("<h1>Please enter a valid shape & the size in pixels</h1>");
               builder.append("<br>[shape options]<br>");
               builder.append("square, triangle, circle");
             }
           }
-
-
         }
         else
         {
