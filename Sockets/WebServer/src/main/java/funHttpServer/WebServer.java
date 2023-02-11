@@ -248,12 +248,16 @@ class WebServer {
           //     "/repos/OWNERNAME/REPONAME/contributors"
 
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
-          query_pairs = splitQuery(request.replace("github?", ""));
+
+
+
+
           boolean error = false;
           URL url;
           String json;
 
           try{
+            query_pairs = splitQuery(request.replace("github?", ""));
             json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
             System.out.println(json);
 
