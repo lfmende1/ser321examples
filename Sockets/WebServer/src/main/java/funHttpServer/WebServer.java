@@ -408,6 +408,7 @@ class WebServer {
                       "height:"+size+"px; " +
                       "width:"+size+"px; " +
                       "background-color:#800000; " +
+                      "border-radius: 100%;"+
                       "} " +
                       "</style></head> ");
               builder.append("<body><h3>You have summoned a " + shape +" with a radius of " + size + "</h3>" +
@@ -415,9 +416,11 @@ class WebServer {
             }else if (shape.equalsIgnoreCase("TRIANGLE")){
               builder.append("<html><head><style>" +
                       ".triangle-up{ " +
-                      "height:"+size+"px; " +
-                      "width:"+size+"px; " +
-                      "background-color:#800000; " +
+                      "height:"+size+";"+
+                      "width:"+size+";"+
+                      "border-right:"+size+"px solid; " +
+                      "border-left:"+size+"px solid; " +
+                      "border-bottom:"+size+"px solid #800000; " +
                       "} " +
                       "</style> ");
               builder.append("<body><h3>You have summoned a " + shape +" with a side-length of " + size + "</h3>" +
