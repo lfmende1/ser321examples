@@ -415,16 +415,16 @@ class WebServer {
                       "<div class=\"circle\"></div></body></html>");
             }else if (shape.equalsIgnoreCase("TRIANGLE")){
               builder.append("<html><head><style>" +
-                      ".triangle-up{ " +
+                      ".triangle{ " +
                       "height:"+size+";"+
                       "width:"+size+";"+
                       "border-right:"+size+"px solid; " +
                       "border-left:"+size+"px solid; " +
-                      "border-bottom:"+size+"px solid #800000; " +
+                      "border-bottom:"+size*2+"px solid #800000; " +
                       "} " +
                       "</style> ");
               builder.append("<body><h3>You have summoned a " + shape +" with a side-length of " + size + "</h3>" +
-                      "<div class=\"triangle-up\"></div></body></html>");
+                      "<div class=\"triangle\"></div></body></html>");
             }else{
 
               builder.replace(0,16,"HTTP/1.1 400 Bad Request\n");
