@@ -252,17 +252,26 @@ class WebServer {
           boolean error = false;
           URL url;
           String json;
+
           try{
             json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
             System.out.println(json);
 
-          }catch(IllegalArgumentException ill){
+          }catch(StringIndexOutOfBoundsException exc){
             error = true;
             json = fetchURL("https://api.github.com/users/amehlhase316/repos");
             builder.append("HTTP/1.1 400 Bad Request\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
             builder.append("\n");
-            builder.append("Please enter a valid query\n");
+            builder.append("<h1>Please enter \"query=\" and your desired RESTAPI request. </h1>\n");
+
+          }catch(IllegalArgumentException ill){
+            error = true;
+            json = fetchURL("https://api.github.com/users/amehlhase316/repos");
+            builder.append("HTTP/1.1 404 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("<h1>Please enter a valid query</h1>\n");
           }
 
           if (!error) {
