@@ -418,8 +418,8 @@ class WebServer {
                       ".triangle{ " +
                       "height:"+0+";"+
                       "width:"+0+";"+
-                      "border-right:"+size+"px solid; " +
-                      "border-left:"+size+"px solid; " +
+                      "border-right:"+size+"px solid transparent; " +
+                      "border-left:"+size+"px solid transparent; " +
                       "border-bottom:"+size*2+"px solid #800000; " +
                       "} " +
                       "</style> ");
