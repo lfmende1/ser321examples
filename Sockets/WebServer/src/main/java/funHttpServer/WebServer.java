@@ -392,16 +392,26 @@ class WebServer {
 
 
         } else if(request.contains("shapes?")){
-          Map<String, String> query_pairs = new LinkedHashMap<String, String>();
-          query_pairs = splitQuery(request.replace("shapes?", ""));
+
           boolean error = false;
           String shape=null;
           int size=0;
           try{
+            Map<String, String> query_pairs = new LinkedHashMap<String, String>();
+            query_pairs = splitQuery(request.replace("shapes?", ""));
             shape = query_pairs.get("shape");
             size = Integer.parseInt(query_pairs.get("size"));
 
-          }catch(IllegalArgumentException exc){
+          }catch(StringIndexOutOfBoundsException e){
+            error = true;
+            builder.append("HTTP/1.1 400 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("<div><h1>Type shapes? followed by shape=\"desired shape\"&size=\"integer\" without quotes</h1></div>");
+            builder.append("<br>[shape options]<br>");
+            builder.append("square, triangle, circle");
+          }
+          catch(IllegalArgumentException exc){
             error = true;
             builder.append("HTTP/1.1 400 Bad Request\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
