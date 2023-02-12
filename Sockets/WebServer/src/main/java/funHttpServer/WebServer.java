@@ -300,13 +300,14 @@ class WebServer {
           // response based on what the assignment document asks for
 
         } else if(request.contains("party?")) {
-          Map<String, String> query_pairs = new LinkedHashMap<String, String>();
-          query_pairs = splitQuery(request.replace("party?", ""));
+
           String color1 = null;
           String color2 = null;
           String rgb1, rgb2;
           boolean error = false;
           try{
+            Map<String, String> query_pairs = new LinkedHashMap<String, String>();
+            query_pairs = splitQuery(request.replace("party?", ""));
             color1 = query_pairs.get("bgr");
             color2 = query_pairs.get("txt");
           }catch(StringIndexOutOfBoundsException strexc){
