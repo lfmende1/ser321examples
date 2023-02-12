@@ -309,7 +309,14 @@ class WebServer {
           try{
             color1 = query_pairs.get("bgr");
             color2 = query_pairs.get("txt");
-          }catch(IllegalArgumentException exc){
+          }catch(StringIndexOutOfBoundsException strexc){
+            error = true;
+            builder.append("HTTP/1.1 400 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("<div><h1>Type party? followed by bgr=\"color\"&txt=\"color\" without quotes</h1></div>");
+          }
+          catch(IllegalArgumentException exc){
             error = true;
             builder.append("HTTP/1.1 400 Bad Request\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
