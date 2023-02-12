@@ -301,7 +301,7 @@ class WebServer {
 
         } else if(request.contains("party?")) {
 
-          String color1 = null;
+          String color1 = null; //colors
           String color2 = null;
           String rgb1, rgb2;
           boolean error = false;
