@@ -324,68 +324,72 @@ class WebServer {
             builder.append("\n");
             builder.append("<div><h1>Illegal argument. please enter the name of a color</h1></div>");
           }
-          switch (color1.toLowerCase()){
-            case("red"):
-              rgb1 = "#FF0000";
-              break;
-            case("green"):
-              rgb1 = "#00FF00";
-              break;
-            case("blue"):
-              rgb1 = "#0000FF";
-              break;
-            case("yellow"):
-              rgb1 = "#FFFF00";
-              break;
-            case("orange"):
-              rgb1 = "#FFAA00";
-              break;
-            case("pink"):
-              rgb1 = "#FFAAEE";
-              break;
-            case("purple"):
-              rgb1 = "#A500FF";
-              break;
-            default:
-              rgb1 = "#FFFFFF";
-          }
+
+          if (!error){
+            switch (color1.toLowerCase()){
+              case("red"):
+                rgb1 = "#FF0000";
+                break;
+              case("green"):
+                rgb1 = "#00FF00";
+                break;
+              case("blue"):
+                rgb1 = "#0000FF";
+                break;
+              case("yellow"):
+                rgb1 = "#FFFF00";
+                break;
+              case("orange"):
+                rgb1 = "#FFAA00";
+                break;
+              case("pink"):
+                rgb1 = "#FFAAEE";
+                break;
+              case("purple"):
+                rgb1 = "#A500FF";
+                break;
+              default:
+                rgb1 = "#FFFFFF";
+            }
 
 
-          switch (color2.toLowerCase()){
-            case("red"):
-              rgb2 = "#FF0000";
-              break;
-            case("green"):
-              rgb2 = "#00FF00";
-              break;
-            case("blue"):
-              rgb2 = "#0000FF";
-              break;
-            case("yellow"):
-              rgb2 = "#FFFF00";
-              break;
-            case("orange"):
-              rgb2 = "#FFAA00";
-              break;
-            case("pink"):
-              rgb2 = "#FFAAEE";
-              break;
-            case("purple"):
-              rgb2 = "#A500FF";
-              break;
-            default:
-              rgb2 = "#FFFFFF";
-          }
-          builder.append("HTTP/1.1 200 OK\n");
-          builder.append("Content-Type: text/html; charset=utf-8\n");
-          builder.append("\n");
-          builder.append("<body style=\"background-color:" + color1 + ";\">");
-          builder.append("<h1 style=\"color:" + color2 + ";\">IT IS CURRENTLY PARTY TIME!</h1><br>");
+            switch (color2.toLowerCase()){
+              case("red"):
+                rgb2 = "#FF0000";
+                break;
+              case("green"):
+                rgb2 = "#00FF00";
+                break;
+              case("blue"):
+                rgb2 = "#0000FF";
+                break;
+              case("yellow"):
+                rgb2 = "#FFFF00";
+                break;
+              case("orange"):
+                rgb2 = "#FFAA00";
+                break;
+              case("pink"):
+                rgb2 = "#FFAAEE";
+                break;
+              case("purple"):
+                rgb2 = "#A500FF";
+                break;
+              default:
+                rgb2 = "#FFFFFF";
+            }
+            builder.append("HTTP/1.1 200 OK\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("<body style=\"background-color:" + color1 + ";\">");
+            builder.append("<h1 style=\"color:" + color2 + ";\">IT IS CURRENTLY PARTY TIME!</h1><br>");
 
-          for (int i = 0; i < 50; i++){
-            builder.append("<h2 style=\"color:" + color2 + ";\">party...</h2><br>");
+            for (int i = 0; i < 50; i++){
+              builder.append("<h2 style=\"color:" + color2 + ";\">party...</h2><br>");
+            }
+            builder.append("<h3 style=\"color:" + color2 + ";\">party over.</h3><br>");
           }
-          builder.append("<h3 style=\"color:" + color2 + ";\">party over.</h3><br>");
+
 
         } else if(request.contains("shapes?")){
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
